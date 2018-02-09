@@ -5,14 +5,7 @@ import './TrackList.css';
 class TrackList extends React.Component{
 
   render(){
-    if (typeof this.props.tracks === 'undefined') {
-           let track = [{
-               name: 'Artist or title not found',
-               artist: 'Try different search terms',
-               album: ' '
-           }];
-
-    return(
+      return(
       <div className="TrackList">
         {this.props.tracks.map(track => {
             return  <Track onAdd={this.props.onAdd}
@@ -22,7 +15,7 @@ class TrackList extends React.Component{
         }
       </div>
     );
-}
+
 }
 }
 export default TrackList;

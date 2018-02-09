@@ -5,7 +5,7 @@ import './Playlist.css';
 class Playlist extends React.Component{
   constructor(props){
     super(props);
-    this.onNameChange = this.onNameChange.bind(this);
+    this.handleNameChange = this.handleNameChange.bind(this);
   }
 
   handleNameChange(event){
@@ -19,7 +19,7 @@ class Playlist extends React.Component{
       defaultValue={'New Playlist'}
       onChange={this.handleNameChange}/>
       <TrackList
-        tracks={this.props.tracks}
+        tracks={this.props.playListTracks}
         onRemove={this.props.onRemove}
       />
       <a className="Playlist-save" onClick={this.props.onSave}>SAVE TO SPOTIFY</a>

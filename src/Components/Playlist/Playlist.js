@@ -1,6 +1,6 @@
 import React from 'react';
 import TrackList from '../TrackList/TrackList';
-import './PlayList.css';
+import './Playlist.css';
 
 class PlayList extends React.Component{
   constructor(props){
@@ -27,3 +27,5 @@ class PlayList extends React.Component{
     );
   }
 }
+
+export default PlayList;

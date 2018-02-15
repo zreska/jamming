@@ -22,7 +22,7 @@ class App extends React.Component {
   }
 
     search(term){
-      Spotify.search(term).then(searchResults => {
+      Spotify.search(term).then(function(searchResults) {
      this.setState({searchResults: searchResults});
    });
     }
@@ -47,14 +47,15 @@ class App extends React.Component {
   }
 
   savePlayList(){
-    const trackUri = this.state.playListTracks.map(track =>track.uri);
+    let trackUri = this.state.playListTracks.map(function(track){return track.uri});
+    if(this.state.playListName && trackUri && trackUri.length >0){
     Spotify.savePlayList(this.state.playListName, trackUri).then(() => {
       this.setState({
         playListName: 'New Playlist',
         playListTracks: []
       });
     });
-
+  }
   }
 
   render() {
@@ -78,3 +79,4 @@ class App extends React.Component {
 }
 
 export default App;
+

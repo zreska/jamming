@@ -28,12 +28,12 @@ class App extends React.Component {
     }
 
   addTrack(track){
-    let tracks = this.state.playlistTracks;
+    let tracks = this.state.playListTracks;
     if (tracks.find(savedTrack => savedTrack.id === track.id)) {
       return;
     }
     tracks.push(track);
-    this.setState({playlistTracks: tracks});
+    this.setState({playListTracks: tracks});
   }
 
   removeTrack(track){
@@ -47,16 +47,11 @@ class App extends React.Component {
   }
 
   savePlayList(){
-    const trackUri = this.state.playListTracks.map(track => track.uri);
+    const trackUri = this.state.playListTracks.map(track =>track.uri);
     Spotify.savePlayList(this.state.playListName, trackUri).then(() => {
       this.setState({
         playListName: 'New Playlist',
-        playListTracks: [],
-        searchResults: [{
-          name: 'Playlist saved to Spotify',
-          album: '',
-          artist: 'Enter search terms'
-        }]
+        playListTracks: []
       });
     });
 

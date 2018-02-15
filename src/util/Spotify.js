@@ -37,15 +37,14 @@ const Spotify = {
       if(!jsonResponse.tracks){
         return[];
       }
-      return jsonResponse.tracks.items.map(track => ({
+      return jsonResponse.tracks.items.map(function(track){
+        return{
         id: track.id,
         name: track.name,
         artist: track.artists[0].name,
         album: track.album.name,
-        uri: track.uri,
-        cover: track.ablum.images[2].url,
-        preview: track.preview_url
-      }));
+        uri: track.uri
+      }});
     });
   },
 
@@ -89,4 +88,3 @@ const Spotify = {
 }
 
 export default Spotify;
-

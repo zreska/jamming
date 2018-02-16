@@ -5,17 +5,20 @@ let accessToken;
 let expiresIn;
 
 const Spotify = {
-  getAccessToken(){
-    if(accessToken){
+  getAccessToken() {
+    if (accessToken) {
       return accessToken;
     }
-  const access=window.location.href.match(/access_token=([^&]*)/);
-  const expires=window.location.href.match(/expires_in=([^&]*)/);
+  //const access=window.location.href.match(/access_token=([^&]*)/);
+  //const expires=window.location.href.match(/expires_in=([^&]*)/);
+  const access= 'BQBKuKSMa59HsqO0iKEHOkzZ7R5SOn01lb2IVjafgaQ1GzH64nSP810xCFnoxL6PVpDfBpXRTbNfD2JfVmdG7n9l1xUCGSeRKAynLQ0goRYm-imnKETrgMzQAiT_XTNEUhTGgH2PMKZ1gAK71LULSrv4WfohyNDcROxlAtCJgzVP5DKcDVSw9vHyi046hDQ';
+  const expires=3600;
   if(access && expires){
-    accessToken=access[1];
-    expiresIn=Number(expires[1]);
+    accessToken=access;
+    expiresIn=Number(expires);
     window.setTimeout(() => accessToken = '', expiresIn * 1000);
     window.history.pushState('Access Token', null, '/');
+    return accessToken;
   }else {
     const spotifyURL=`https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectUri}`;
     window.location = spotifyURL;
@@ -27,17 +30,9 @@ const Spotify = {
       headers: {
         Authorization: `Bearer ${accessToken}`
       }
-    }).then(response=> {
-        if(response.ok){
-          return response.json();
-        } else {
-          console.log('API request failed');
-        }
-    }).then(jsonResponse =>{
-      if(!jsonResponse.tracks){
-        return[];
-      }
-      return jsonResponse.tracks.items.map(function(track){
+    }).then(response=>response.json()).then(jsonResponse =>{
+      if(jsonResponse.tracks){
+      return jsonResponse.tracks.items.map(track=>{
         return{
         id: track.id,
         name: track.name,
@@ -45,8 +40,11 @@ const Spotify = {
         album: track.album.name,
         uri: track.uri
       }});
-    });
-  },
+    }else{
+      return [];
+    }
+  });
+},
 
   savePlayList(playListName, trackUri){
     if(!playListName || !trackUri.length){

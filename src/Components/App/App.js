@@ -14,16 +14,18 @@ class App extends React.Component {
       playListName: 'New Playlist',
       playListTracks: []
     };
-    this.search = this.search.bind(this);
-    this.addTrack = this.addTrack.bind(this);
-    this.removeTrack = this.removeTrack.bind(this);
+    this.addTrack           = this.addTrack.bind(this);
+    this.removeTrack        = this.removeTrack.bind(this);
     this.updatePlayListName = this.updatePlayListName.bind(this);
-    this.savePlayList = this.savePlayList.bind(this);
+    this.savePlayList       = this.savePlayList.bind(this);
+    this.search             = this.search.bind(this);
+
+    Spotify.getAccessToken();
   }
 
     search(term){
-      Spotify.search(term).then(function(searchResults) {
-     this.setState({searchResults: searchResults});
+      Spotify.search(term).then(results=> {
+     this.setState({searchResults: results});
    });
     }
 
@@ -79,4 +81,3 @@ class App extends React.Component {
 }
 
 export default App;
-

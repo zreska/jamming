@@ -2,7 +2,6 @@ const clientId = '9334f2b5ddc44ea5b5d981c3de0521de';
 const redirectUri='http://localhost:3000/';
 
 let accessToken;
-let expiresIn;
 
 const Spotify = {
 
